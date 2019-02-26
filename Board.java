@@ -8,7 +8,7 @@ public class Board {
     public void clear() {
 
     }
-    public void print(Spaceship myShip, Meteor myMeteor) {
+    public void print(Spaceship myShip, Meteor[] myMeteors) {
         System.out.print("\033[H\033[2J");
         for (int i=0; i<board.length; i++) {
             String[] row = new String[183];
@@ -17,7 +17,9 @@ public class Board {
         }
 
         placeShip(myShip);
-	placeMeteor(myMeteor);
+	for(Meteor myMeteor : myMeteors){
+		placeMeteor(myMeteor);
+	}
 
         for (int i=0; i<board.length; i++) {
             System.out.print(String.join("", board[i]));

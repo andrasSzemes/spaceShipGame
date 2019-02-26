@@ -2,13 +2,19 @@ import java.util.Arrays;
 
 public class Meteor {
   private final String ASCII = "MMM8&&&MMMM88&&&MMMM88&&&&&MMMM88&&&MMM8&&&";
-  private int[] origo = new int[] {-2, 90};
+  private int[] origo;
+	private int velocity;
+
+	Meteor(int col, int vel){
+		origo = new int[] {(int)(Math.random() * (-15) - 1), col};
+		velocity = vel;
+	}
 
   public void fall() {
 		if(origo[0] < 47) {
-			origo[0] += 1;		
+			origo[0] += velocity;
 		} else {
-			origo[0] = -2;
+			origo[0] = (int)(Math.random() * (-50) - 1);
 		}
   }
 	public int getOrigoY() {return origo[0];}
@@ -29,37 +35,41 @@ public class Meteor {
 			{origo[0]+2, origo[1]+2}, {origo[0]+2, origo[1]+3}
 		};
 		int[][] newArray;
-		switch(origo[0]){
-			case -2:
-				newArray = Arrays.copyOfRange(coordinates, coordinates.length - 7, coordinates.length);
-				break;
-			case -1:
-				newArray = Arrays.copyOfRange(coordinates, coordinates.length - 16, coordinates.length);
-				break;
-			case 0:
-				newArray = Arrays.copyOfRange(coordinates, coordinates.length - 27, coordinates.length);
-				break;
-			case 1:
-				newArray = Arrays.copyOfRange(coordinates, coordinates.length - 36, coordinates.length);
-				break;
-			case 43:
-				newArray = Arrays.copyOfRange(coordinates, 0, coordinates.length - 7);
-				break;
-			case 44:
-				newArray = Arrays.copyOfRange(coordinates, 0, coordinates.length - 16);
-				break;
-			case 45:
-				newArray = Arrays.copyOfRange(coordinates, 0, coordinates.length - 27);
-				break;
-			case 46:
-				newArray = Arrays.copyOfRange(coordinates, 0, coordinates.length - 36);
-				break;
-			case 47:
-				newArray = new int[1][1];
-				break;
-			default:
-				newArray = coordinates;
-				break;
+		if(origo[0] < -2){
+			newArray = new int[1][1];
+		}else{
+			switch(origo[0]){
+				case -2:
+					newArray = Arrays.copyOfRange(coordinates, coordinates.length - 7, coordinates.length);
+					break;
+				case -1:
+					newArray = Arrays.copyOfRange(coordinates, coordinates.length - 16, coordinates.length);
+					break;
+				case 0:
+					newArray = Arrays.copyOfRange(coordinates, coordinates.length - 27, coordinates.length);
+					break;
+				case 1:
+					newArray = Arrays.copyOfRange(coordinates, coordinates.length - 36, coordinates.length);
+					break;
+				case 43:
+					newArray = Arrays.copyOfRange(coordinates, 0, coordinates.length - 7);
+					break;
+				case 44:
+					newArray = Arrays.copyOfRange(coordinates, 0, coordinates.length - 16);
+					break;
+				case 45:
+					newArray = Arrays.copyOfRange(coordinates, 0, coordinates.length - 27);
+					break;
+				case 46:
+					newArray = Arrays.copyOfRange(coordinates, 0, coordinates.length - 36);
+					break;
+				case 47:
+					newArray = new int[1][1];
+					break;
+				default:
+					newArray = coordinates;
+					break;
+			}
 		}
 		return newArray;
 	}
