@@ -8,9 +8,8 @@ public class Board {
     public void clear() {
 
     }
-    public void print(Spaceship myShip) {
+    public void print(Spaceship myShip, Meteor myMeteor) {
         System.out.print("\033[H\033[2J");
-        fillChar = fillChar == " " ? "X" : " ";
         for (int i=0; i<board.length; i++) {
             String[] row = new String[183];
             Arrays.fill(row, fillChar);
@@ -18,13 +17,18 @@ public class Board {
         }
 
         placeShip(myShip);
+	placeMeteor(myMeteor);
 
         for (int i=0; i<board.length; i++) {
             System.out.print(String.join("", board[i]));
         }
     }
-    public void placeMeteor() {
-
+    public void placeMeteor(Meteor myMeteor) {
+	String ascii = myMeteor.getAscii();
+	int[][] coords = myMeteor.getCoord();
+	for (int i=0; i < ascii.length(); i++) {
+            board[coords[i][0]][coords[i][1]] = ascii.substring(i, i+1);
+        }
     }
     public void placeShip(Spaceship myShip) {
         String ascii = myShip.getAscii();
