@@ -26,9 +26,11 @@ public class Board {
     public void placeMeteor(Meteor myMeteor) {
 	String ascii = myMeteor.getAscii();
 	int[][] coords = myMeteor.getCoord();
-	for (int i=0; i < ascii.length(); i++) {
-            board[coords[i][0]][coords[i][1]] = ascii.substring(i, i+1);
-        }
+	if(coords.length > 1){
+		for (int i=0; i < coords.length; i++) {
+        	    board[coords[i][0]][coords[i][1]] = ascii.substring(i, i+1);
+        	}
+	}
     }
     public void placeShip(Spaceship myShip) {
         String ascii = myShip.getAscii();
