@@ -2,18 +2,13 @@ import java.util.Arrays;
 
 public class Meteor {
   private final String ASCII = "MMM8&&&MMMM88&&&MMMM88&&&&&MMMM88&&&MMM8&&&";
-  private int[] origo;
-
-	Meteor() {
-		origo = new int[] {15, 90};
-	}
-
+  private int[] origo = new int[] {-2, 90};
 
   public void fall() {
 		if(origo[0] < 47) {
 			origo[0] += 1;		
 		} else {
-			origo[0] = 15;
+			origo[0] = -2;
 		}
   }
 	public int getOrigoY() {return origo[0];}
@@ -35,6 +30,18 @@ public class Meteor {
 		};
 		int[][] newArray;
 		switch(origo[0]){
+			case -2:
+				newArray = Arrays.copyOfRange(coordinates, coordinates.length - 7, coordinates.length);
+				break;
+			case -1:
+				newArray = Arrays.copyOfRange(coordinates, coordinates.length - 16, coordinates.length);
+				break;
+			case 0:
+				newArray = Arrays.copyOfRange(coordinates, coordinates.length - 27, coordinates.length);
+				break;
+			case 1:
+				newArray = Arrays.copyOfRange(coordinates, coordinates.length - 36, coordinates.length);
+				break;
 			case 43:
 				newArray = Arrays.copyOfRange(coordinates, 0, coordinates.length - 7);
 				break;
