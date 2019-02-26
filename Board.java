@@ -2,7 +2,7 @@ import java.util.Arrays;
 
 public class Board {
     //resolution 180x45
-    private static String[][] board = new String[45][180];
+    private static String[][] board = new String[45][183];
     private static String fillChar = " ";
 
     public void clear() {
@@ -12,7 +12,7 @@ public class Board {
         System.out.print("\033[H\033[2J");
         fillChar = fillChar == " " ? "X" : " ";
         for (int i=0; i<board.length; i++) {
-            String[] row = new String[180];
+            String[] row = new String[183];
             Arrays.fill(row, fillChar);
             board[i] = row;
         }
