@@ -10,7 +10,7 @@ public class Game {
             myBoard.print(myShip, myMeteor);
             moveShip(myShip);
 
-	          //myMeteor.fall();
+	          myMeteor.fall();
             try {
                 Thread.sleep(100);
             } catch (Exception e) {}
