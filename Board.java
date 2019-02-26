@@ -2,7 +2,7 @@ import java.util.Arrays;
 
 public class Board {
     //resolution 183x45
-    private static String[][] board = new String[45][183];
+    private static String[][] board = new String[43][183];
     private static String fillChar = " ";
 
     public void clear() {
@@ -17,11 +17,12 @@ public class Board {
         }
 
         placeShip(myShip);
-	placeMeteor(myMeteor);
+	      placeMeteor(myMeteor);
 
         for (int i=0; i<board.length; i++) {
             System.out.print(String.join("", board[i]));
         }
+        System.out.print(" "); //Extra row for control input
     }
     public void placeMeteor(Meteor myMeteor) {
 	String ascii = myMeteor.getAscii();

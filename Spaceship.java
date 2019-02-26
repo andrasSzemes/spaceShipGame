@@ -11,7 +11,7 @@ public class Spaceship {
     //  /     |_|     \
     // (_______________)
     //      ( ) ( )
-    private int[] origo = new int[]{39, 90};
+    private int[] origo = new int[]{37, 90};
 
     public void move() {
 
@@ -19,6 +19,7 @@ public class Spaceship {
 
     public int getOrigoY() {return origo[0];}
     public int getOrigoX() {return origo[1];}
+
     public int[][] getCoord() {
       //each line is a row from the ascii art
       int[][] coordinates = new int[][] {
@@ -40,4 +41,9 @@ public class Spaceship {
     }
 
     public String getAscii() {return ASCII;}
+
+    public void moveRight() {origo[1] += 2;}
+    public void moveLeft() {origo[1] -= 2;}
+
+
 }
