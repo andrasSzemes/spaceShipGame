@@ -5,14 +5,13 @@ public class Meteor {
   private int[] origo;
 	private int velocity;
 
-	Meteor(int col, int vel){
+	Meteor(int col){
 		origo = new int[] {(int)(Math.random() * (-15) - 1), col};
-		velocity = vel;
 	}
 
   public void fall() {
-		if(origo[0] < 47) {
-			origo[0] += velocity;
+		if(origo[0] < 45) {
+			origo[0] += 1;
 		} else {
 			origo[0] = (int)(Math.random() * (-50) - 1);
 		}
@@ -37,7 +36,7 @@ public class Meteor {
 		int[][] newArray;
 		if(origo[0] < -2){
 			newArray = new int[1][1];
-		}else{
+		} else {
 			switch(origo[0]){
 				case -2:
 					newArray = Arrays.copyOfRange(coordinates, coordinates.length - 7, coordinates.length);
@@ -51,19 +50,19 @@ public class Meteor {
 				case 1:
 					newArray = Arrays.copyOfRange(coordinates, coordinates.length - 36, coordinates.length);
 					break;
-				case 43:
+				case 41:
 					newArray = Arrays.copyOfRange(coordinates, 0, coordinates.length - 7);
 					break;
-				case 44:
+				case 42:
 					newArray = Arrays.copyOfRange(coordinates, 0, coordinates.length - 16);
 					break;
-				case 45:
+				case 43:
 					newArray = Arrays.copyOfRange(coordinates, 0, coordinates.length - 27);
 					break;
-				case 46:
+				case 44:
 					newArray = Arrays.copyOfRange(coordinates, 0, coordinates.length - 36);
 					break;
-				case 47:
+				case 45:
 					newArray = new int[1][1];
 					break;
 				default:
