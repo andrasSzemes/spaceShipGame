@@ -1,7 +1,7 @@
 import java.util.Arrays;
 
 public class Board {
-    //resolution 180x45
+    //resolution 183x45
     private static String[][] board = new String[45][183];
     private static String fillChar = " ";
 
@@ -10,7 +10,6 @@ public class Board {
     }
     public void print(Spaceship myShip) {
         System.out.print("\033[H\033[2J");
-        fillChar = fillChar == " " ? "X" : " ";
         for (int i=0; i<board.length; i++) {
             String[] row = new String[183];
             Arrays.fill(row, fillChar);
@@ -33,7 +32,5 @@ public class Board {
         for (int i=0; i < ascii.length(); i++) {
             board[coords[i][0]][coords[i][1]] = ascii.substring(i, i+1);
         }
-
-        board[myShip.getOrigoY()][myShip.getOrigoX()] = "O";
     }
 }
