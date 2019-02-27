@@ -4,12 +4,14 @@ public class Game {
     public static void main(String[] args) {
         Board myBoard = new Board();
         Spaceship myShip = new Spaceship();
-	Meteor slowMeteor = new Meteor(90);
-	Meteor mediumMeteor = new Meteor(30);
-	Meteor fastMeteor = new Meteor(150);
+	      Meteor slowMeteor = new Meteor(90);
+	      Meteor mediumMeteor = new Meteor(30);
+	      Meteor fastMeteor = new Meteor(150);
+
 
         while (true) {
             myBoard.print(myShip, new Meteor[] {slowMeteor, mediumMeteor, fastMeteor});
+	    moveShip(myShip);
 	    slowMeteor.fall();
 	    mediumMeteor.fall();
 	    fastMeteor.fall();
