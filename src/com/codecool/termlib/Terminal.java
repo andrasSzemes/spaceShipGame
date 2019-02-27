@@ -31,7 +31,7 @@ public class Terminal {
      * Reset the color, background color, and any other style
      * (i.e.: underlined, dim, bright) to the terminal defaults.
      */
-    public void resetStyle() {
+    public static void resetStyle() {
     }
 
     /**
@@ -39,7 +39,8 @@ public class Terminal {
      *
      * Might reset cursor position.
      */
-    public void clearScreen() {
+    public static void clearScreen() {
+	    command(CONTROL_CODE + CLEAR);
     }
 
     /**
@@ -51,7 +52,8 @@ public class Terminal {
      * @param x Column number.
      * @param y Row number.
      */
-    public void moveTo(Integer x, Integer y) {
+    public static void moveTo(Integer x, Integer y) {
+	    command(CONTROL_CODE + x + ";" + y + MOVE);
     }
 
     /**
@@ -62,6 +64,37 @@ public class Terminal {
      * @param color The color to set.
      */
     public void setColor(Color color) {
+        String colorCode;        
+        switch(color){
+            case BLACK:
+                colorCode = "30";
+                break;
+            case RED:
+                colorCode = "31";
+                break;
+            case GREEN:
+                colorCode = "32";
+                break;
+            case YELLOW:
+                colorCode = "33";
+                break;
+            case BLUE:
+                colorCode = "34";
+                break;
+            case MAGENTA:
+                colorCode = "35";
+                break;
+            case CYAN:
+                colorCode = "36";
+                break;
+            case WHITE:
+                colorCode = "37";
+                break;
+            default:
+                colorCode = "";
+        }
+        String commandString = CONTROL_CODE + colorCode + STYLE;
+        command(commandString);
     }
 
     /**
@@ -72,6 +105,37 @@ public class Terminal {
      * @param color The background color to set.
      */
     public void setBgColor(Color color) {
+        String colorCode;        
+        switch(color){
+            case BLACK:
+                colorCode = "40";
+                break;
+            case RED:
+                colorCode = "41";
+                break;
+            case GREEN:
+                colorCode = "42";
+                break;
+            case YELLOW:
+                colorCode = "43";
+                break;
+            case BLUE:
+                colorCode = "44";
+                break;
+            case MAGENTA:
+                colorCode = "45";
+                break;
+            case CYAN:
+                colorCode = "46";
+                break;
+            case WHITE:
+                colorCode = "47";
+                break;
+            default:
+                colorCode = "";
+        }
+        String commandString = CONTROL_CODE + colorCode + STYLE;
+        command(commandString);
     }
 
     /**
@@ -81,7 +145,7 @@ public class Terminal {
      * underlined.  Cannot be turned off without turning off colors as
      * well.
      */
-    public void setUnderline() {
+    public static void setUnderline() {
     }
 
     /**
@@ -94,6 +158,16 @@ public class Terminal {
      * @param amount Step the cursor this many times.
      */
     public void moveCursor(Direction direction, Integer amount) {
+        switch(direction){
+            case UP:
+                break;
+            case DOWN:
+                break;
+            case FORWARD:
+                break;
+            case BACKWARD:
+                break;
+        }
     }
 
     /**
@@ -106,7 +180,8 @@ public class Terminal {
      * @param c the literal character to set for the current cursor
      * position.
      */
-    public void setChar(char c) {
+    public static void setChar(char c) {
+	    command(c + "");
     }
 
     /**
@@ -117,6 +192,7 @@ public class Terminal {
      *
      * @param commandString The unique part of a command sequence.
      */
-    private void command(String commandString) {
+    private static void command(String commandString) {
+	System.out.print(commandString);
     }
 }
