@@ -1,4 +1,5 @@
 import java.util.Arrays;
+import java.lang.*;
 
 public class Board {
     //resolution 183x45
@@ -17,21 +18,25 @@ public class Board {
         }
 
         placeShip(myShip);
-	for(Meteor myMeteor : myMeteors){
-		placeMeteor(myMeteor);
-	}
+	      for(Meteor myMeteor : myMeteors){
+		        placeMeteor(myMeteor);
+        }
         for (int i=0; i<board.length; i++) {
             System.out.print(String.join("", board[i]));
         }
         System.out.print(" "); //Extra row for control input
     }
+
     public void placeMeteor(Meteor myMeteor) {
-	String ascii = myMeteor.getAscii();
-	int[][] coords = myMeteor.getCoord();
-	if(coords.length > 1){
-		for (int i=0; i < coords.length; i++) {
-        	    board[coords[i][0]][coords[i][1]] = ascii.substring(i, i+1);
-        	}
+	     String ascii = myMeteor.getAscii();
+	     int[][] coords = myMeteor.getCoord();
+	     if(coords.length > 1){
+		   for (int i=0; i < coords.length; i++) {
+          try {
+          	    board[coords[i][0]][coords[i][1]] = ascii.substring(i, i+1);
+              }
+          catch (ArrayIndexOutOfBoundsException e) {}
+      }
 	}
     }
     public void placeShip(Spaceship myShip) {
