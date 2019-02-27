@@ -24,7 +24,9 @@ public class Game {
       	    mediumMeteor.fall();
       	    fastMeteor.fall();
 
+            Terminal.setColor(Color.YELLOW);
             myBoard.printShip(myShip, true);
+            Terminal.setColor(Color.RED);
             for (Meteor meteor : new Meteor[] {slowMeteor, mediumMeteor, fastMeteor}) {
                 myBoard.printMeteor(meteor, true);
             }

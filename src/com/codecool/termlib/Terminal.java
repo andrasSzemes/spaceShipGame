@@ -63,7 +63,7 @@ public class Terminal {
      *
      * @param color The color to set.
      */
-    public void setColor(Color color) {
+    public static void setColor(Color color) {
         String colorCode;
         switch(color){
             case BLACK:
