@@ -10,6 +10,7 @@ public class Game {
 
         while (true) {
             myBoard.print(myShip, new Meteor[] {slowMeteor, mediumMeteor, fastMeteor});
+	    moveShip(myShip);
 	    slowMeteor.fall();
 	    mediumMeteor.fall();
 	    fastMeteor.fall();
