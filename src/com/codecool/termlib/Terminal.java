@@ -31,7 +31,7 @@ public class Terminal {
      * Reset the color, background color, and any other style
      * (i.e.: underlined, dim, bright) to the terminal defaults.
      */
-    public void resetStyle() {
+    public static void resetStyle() {
     }
 
     /**
@@ -39,7 +39,7 @@ public class Terminal {
      *
      * Might reset cursor position.
      */
-    public void clearScreen() {
+    public static void clearScreen() {
     }
 
     /**
@@ -51,7 +51,7 @@ public class Terminal {
      * @param x Column number.
      * @param y Row number.
      */
-    public void moveTo(Integer x, Integer y) {
+    public static void moveTo(Integer x, Integer y) {
     }
 
     /**
@@ -61,8 +61,8 @@ public class Terminal {
      *
      * @param color The color to set.
      */
-    public void setColor(Color color) {
-    }
+    // public void setColor(Color color) {
+    // }
 
     /**
      * Set the background printing color.
@@ -71,8 +71,8 @@ public class Terminal {
      *
      * @param color The background color to set.
      */
-    public void setBgColor(Color color) {
-    }
+    // public void setBgColor(Color color) {
+    // }
 
     /**
      * Make printed text underlined.
@@ -81,7 +81,7 @@ public class Terminal {
      * underlined.  Cannot be turned off without turning off colors as
      * well.
      */
-    public void setUnderline() {
+    public static void setUnderline() {
     }
 
     /**
@@ -106,7 +106,8 @@ public class Terminal {
      * @param c the literal character to set for the current cursor
      * position.
      */
-    public void setChar(char c) {
+    public static void setChar(char c) {
+        command(String.valueOf(c));
     }
 
     /**
@@ -117,6 +118,7 @@ public class Terminal {
      *
      * @param commandString The unique part of a command sequence.
      */
-    private void command(String commandString) {
+    private static void command(String commandString) {
+        System.out.print(commandString);
     }
 }
