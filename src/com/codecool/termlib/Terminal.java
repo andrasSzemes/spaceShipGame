@@ -40,6 +40,10 @@ public class Terminal {
      * Might reset cursor position.
      */
     public static void clearScreen() {
+<<<<<<< HEAD
+=======
+	    command(CONTROL_CODE + CLEAR);
+>>>>>>> 39f5d30ae2b15801bfb18d3aa6dc2b53358feb30
     }
 
     /**
@@ -52,6 +56,10 @@ public class Terminal {
      * @param y Row number.
      */
     public static void moveTo(Integer x, Integer y) {
+<<<<<<< HEAD
+=======
+	    command(CONTROL_CODE + x + ";" + y + MOVE);
+>>>>>>> 39f5d30ae2b15801bfb18d3aa6dc2b53358feb30
     }
 
     /**
@@ -61,8 +69,44 @@ public class Terminal {
      *
      * @param color The color to set.
      */
+<<<<<<< HEAD
     // public void setColor(Color color) {
     // }
+=======
+    public void setColor(Color color) {
+        String colorCode;        
+        switch(color){
+            case BLACK:
+                colorCode = "30";
+                break;
+            case RED:
+                colorCode = "31";
+                break;
+            case GREEN:
+                colorCode = "32";
+                break;
+            case YELLOW:
+                colorCode = "33";
+                break;
+            case BLUE:
+                colorCode = "34";
+                break;
+            case MAGENTA:
+                colorCode = "35";
+                break;
+            case CYAN:
+                colorCode = "36";
+                break;
+            case WHITE:
+                colorCode = "37";
+                break;
+            default:
+                colorCode = "";
+        }
+        String commandString = CONTROL_CODE + colorCode + STYLE;
+        command(commandString);
+    }
+>>>>>>> 39f5d30ae2b15801bfb18d3aa6dc2b53358feb30
 
     /**
      * Set the background printing color.
@@ -71,8 +115,44 @@ public class Terminal {
      *
      * @param color The background color to set.
      */
+<<<<<<< HEAD
     // public void setBgColor(Color color) {
     // }
+=======
+    public void setBgColor(Color color) {
+        String colorCode;        
+        switch(color){
+            case BLACK:
+                colorCode = "40";
+                break;
+            case RED:
+                colorCode = "41";
+                break;
+            case GREEN:
+                colorCode = "42";
+                break;
+            case YELLOW:
+                colorCode = "43";
+                break;
+            case BLUE:
+                colorCode = "44";
+                break;
+            case MAGENTA:
+                colorCode = "45";
+                break;
+            case CYAN:
+                colorCode = "46";
+                break;
+            case WHITE:
+                colorCode = "47";
+                break;
+            default:
+                colorCode = "";
+        }
+        String commandString = CONTROL_CODE + colorCode + STYLE;
+        command(commandString);
+    }
+>>>>>>> 39f5d30ae2b15801bfb18d3aa6dc2b53358feb30
 
     /**
      * Make printed text underlined.
@@ -94,6 +174,16 @@ public class Terminal {
      * @param amount Step the cursor this many times.
      */
     public void moveCursor(Direction direction, Integer amount) {
+        switch(direction){
+            case UP:
+                break;
+            case DOWN:
+                break;
+            case FORWARD:
+                break;
+            case BACKWARD:
+                break;
+        }
     }
 
     /**
@@ -107,7 +197,11 @@ public class Terminal {
      * position.
      */
     public static void setChar(char c) {
+<<<<<<< HEAD
         command(String.valueOf(c));
+=======
+	    command(c + "");
+>>>>>>> 39f5d30ae2b15801bfb18d3aa6dc2b53358feb30
     }
 
     /**
@@ -119,6 +213,10 @@ public class Terminal {
      * @param commandString The unique part of a command sequence.
      */
     private static void command(String commandString) {
+<<<<<<< HEAD
         System.out.print(commandString);
+=======
+	System.out.print(commandString);
+>>>>>>> 39f5d30ae2b15801bfb18d3aa6dc2b53358feb30
     }
 }
