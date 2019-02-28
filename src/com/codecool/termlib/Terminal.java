@@ -32,7 +32,7 @@ public class Terminal {
      * Reset the color, background color, and any other style
      * (i.e.: underlined, dim, bright) to the terminal defaults.
      */
-    public void resetStyle() {
+    public static void resetStyle() {
     }
 
     /**
@@ -40,7 +40,7 @@ public class Terminal {
      *
      * Might reset cursor position.
      */
-    public void clearScreen() {
+    public static void clearScreen() {
 	    command(CONTROL_CODE + CLEAR);
     }
 
@@ -53,7 +53,7 @@ public class Terminal {
      * @param x Column number.
      * @param y Row number.
      */
-    public void moveTo(Integer x, Integer y) {
+    public static void moveTo(Integer x, Integer y) {
 	    command(CONTROL_CODE + x + ";" + y + MOVE);
     }
 
@@ -64,8 +64,8 @@ public class Terminal {
      *
      * @param color The color to set.
      */
-    public void setColor(Color color) {
-        String colorCode;        
+    public static void setColor(Color color) {
+        String colorCode;
         switch(color){
             case BLACK:
                 colorCode = "30";
@@ -105,8 +105,8 @@ public class Terminal {
      *
      * @param color The background color to set.
      */
-    public void setBgColor(Color color) {
-        String colorCode;        
+    public static void setBgColor(Color color) {
+        String colorCode;
         switch(color){
             case BLACK:
                 colorCode = "40";
@@ -146,7 +146,7 @@ public class Terminal {
      * underlined.  Cannot be turned off without turning off colors as
      * well.
      */
-    public void setUnderline() {
+    public static void setUnderline() {
     }
 
     /**
@@ -158,17 +158,15 @@ public class Terminal {
      * @param direction Step the cursor in this direction.
      * @param amount Step the cursor this many times.
      */
-    public void moveCursor(Direction direction, Integer amount) {
-        switch(direction){
-            case UP:
-                break;
-            case DOWN:
-                break;
-            case FORWARD:
-                break;
-            case BACKWARD:
-                break;
-        }
+    public static void moveCursor(Direction direction, Integer amount) {
+        String commandString = CONTROL_CODE + amount;
+
+        if (direction == Direction.UP) {commandString += "A";}
+        else if (direction == Direction.DOWN) {commandString += "B";}
+        else if (direction == Direction.FORWARD) {commandString += "C";}
+        else if (direction == Direction.BACKWARD) {commandString += "D";}
+
+        command(commandString);
     }
 
     /**
@@ -181,8 +179,9 @@ public class Terminal {
      * @param c the literal character to set for the current cursor
      * position.
      */
-    public void setChar(char c) {
-	    command(c + "");
+
+    public static void setChar(char c) {
+        command(String.valueOf(c));
     }
     public int[] getConsoleDimensions(){
         Console console = System.console();
@@ -204,6 +203,6 @@ public class Terminal {
      * @param commandString The unique part of a command sequence.
      */
     private static void command(String commandString) {
-	System.out.print(commandString);
+        System.out.print(commandString);
     }
 }

@@ -8,48 +8,51 @@ public class Game {
         int[] consoleDimensions = myTerminal.getConsoleDimensions();
         Board myBoard = new Board(consoleDimensions);
         Spaceship myShip = new Spaceship(consoleDimensions);
-        Meteor[] meteors = createMeteors(consoleDimensions);
+        Meteor[] meteors = createMeteors(consoleDimensions, myBoard);
+
+	    Terminal.clearScreen();
+        myBoard.printEmptyBoard();
 
         while (true) {
-            myBoard.print(myShip, meteors);
-	    moveShip(myShip);
-	    for(Meteor meteor : meteors){
-            meteor.fall();
-        }
+            myBoard.printShip(myShip, false);
+            for(Meteor meteor : meteors){
+                myBoard.printMeteor(meteor, false);
+            }
+
+	        moveShip(myShip);
+	        for(Meteor meteor : meteors){
+                meteor.fall(consoleDimensions[0]);
+            }
+
+            Terminal.setColor(Color.YELLOW);
+            myBoard.printShip(myShip, true);
+            Terminal.setColor(Color.RED);
+            for (Meteor meteor : meteors) {
+                myBoard.printMeteor(meteor, true);
+            }
+
+            Terminal.moveTo(new Integer(myBoard.getHeight()-2), new Integer(1));
+
             try {
                 Thread.sleep(100);
             } catch (Exception e) {}
         }
     }
 
-    private static Meteor[] createMeteors(int[] consoleDimensions){
-        int countOfMeteors = 0;
+    private static Meteor[] createMeteors(int[] consoleDimensions, Board myBoard){
+        int terminalWidth = consoleDimensions[1];
+        int countOfMeteors = myBoard.getNumOfMeteors(consoleDimensions[1]);
+        int margin = 10;
         int start = 5;
-        int end = 0;      
-        int meteorWidth = 11;
-        int minGap = 17;
-        int cols = consoleDimensions[1];
-        int remainder = (consoleDimensions[1] - 10) % meteorWidth;
-        int ratio = (int) Math.floor((cols - 10) / meteorWidth);
-        if(remainder < minGap){
-            if(ratio > 2){
-                countOfMeteors = ratio - 2;
-            } else {
-                countOfMeteors = ratio - 1;
-            }
-        } else {
-            countOfMeteors = ratio;
-        }
+        int end;      
         Meteor[] meteors = new Meteor[countOfMeteors];
-        int[] starts = new int[countOfMeteors];
-        int[] ends = new int[countOfMeteors];
         for(int i = 0; i < countOfMeteors; i++){
-            starts[i] = start;
-            end = (int) Math.floor((cols - 10) / countOfMeteors) * (i + 1) - 5;
-            ends[i] = end;
+            int marginRight = (i == countOfMeteors - 1) ? 0 : margin / 2;
+
+            end = (int) Math.floor((terminalWidth - margin) / countOfMeteors) * (i + 1) - marginRight;
             Meteor newMeteor = new Meteor(start, end);
             meteors[i] = newMeteor;
-            start = end + 10;
+            start = end + margin;
         }
         return meteors;    
     }
@@ -78,6 +81,7 @@ public class Game {
 
             if (pressedKey == 'a' && myShip.getOrigoX() > 8) myShip.moveLeft();
             if (pressedKey == 'd' && myShip.getOrigoX() < 174) myShip.moveRight();
+            if (pressedKey == 'q') System.exit(0);
         }
         catch (Exception e) {}
     }

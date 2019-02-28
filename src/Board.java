@@ -1,58 +1,70 @@
 import java.util.Arrays;
 import java.lang.*;
+import com.codecool.termlib.*;
 
 public class Board {
     //resolution 183x45
     private static String[][] board;
     private static String fillChar = " ";
-    private int rows;
-    private int cols;
+    private static int numOfCols;
 
-    Board(int[] consoleDimensions){
-        this.rows = consoleDimensions[0];
-        this.cols = consoleDimensions[1];
-        this.board = new String[consoleDimensions[0] - 2][consoleDimensions[1]];
+    Board(int[] consoleDimensions) {
+        this.board = new String[consoleDimensions[0]][consoleDimensions[1]];
+        this.numOfCols = consoleDimensions[1];
+    }
+    
+    public int getHeight() {
+        return board.length;
     }
 
-    public void clear() {
-
-    }
-    public void print(Spaceship myShip, Meteor[] myMeteors) {
-        System.out.print("\033[H\033[2J");
+    public void printEmptyBoard() {
         for (int i=0; i<board.length; i++) {
-            String[] row = new String[this.cols];
+            String[] row = new String[this.numOfCols];
             Arrays.fill(row, fillChar);
             board[i] = row;
         }
 
-        placeShip(myShip);
-	      for(Meteor myMeteor : myMeteors){
-		        placeMeteor(myMeteor);
-        }
         for (int i=0; i<board.length; i++) {
             System.out.print(String.join("", board[i]));
         }
+
         System.out.print(" "); //Extra row for control input
     }
 
-    public void placeMeteor(Meteor myMeteor) {
+    public void printMeteor(Meteor myMeteor, boolean bool) {
 	     String ascii = myMeteor.getAscii();
-	     int[][] coords = myMeteor.getCoord();
+	     int[][] coords = myMeteor.getCoord(board.length);
 	     if(coords.length > 1){
 		   for (int i=0; i < coords.length; i++) {
-          try {
-          	    board[coords[i][0]][coords[i][1]] = ascii.substring(i, i+1);
-              }
-          catch (ArrayIndexOutOfBoundsException e) {}
+            if (coords[i][0] > 0 && coords[i][0] < board.length) {
+          	    Terminal.moveTo(new Integer(coords[i][0]), new Integer(coords[i][1]));
+                Terminal.setChar(bool ? ascii.charAt(i) : ' ');
+            }
       }
 	}
     }
-    public void placeShip(Spaceship myShip) {
+    public void printShip(Spaceship myShip, boolean bool) {
         String ascii = myShip.getAscii();
         int[][] coords = myShip.getCoord();
 
         for (int i=0; i < ascii.length(); i++) {
-            board[coords[i][0]][coords[i][1]] = ascii.substring(i, i+1);
+            Terminal.moveTo(new Integer(coords[i][0]), new Integer(coords[i][1]));
+            Terminal.setChar(bool ? ascii.charAt(i) : ' ');
         }
+    }
+    public int getNumOfMeteors(int terminalWidth){
+        int shipWidth = 17;
+        int meteorWidth = 11;
+        int margin = 10; //for showing full meteors
+        int remainingEmptyCols = (terminalWidth - margin) % meteorWidth;
+        int maxNumOfMeteors = (int) Math.floor((terminalWidth - margin) / meteorWidth);
+        int countOfMeteors;
+
+        if(remainingEmptyCols < shipWidth){
+            countOfMeteors = (maxNumOfMeteors == 2) ? maxNumOfMeteors - 3 : maxNumOfMeteors - 4;
+        } else {
+            countOfMeteors = maxNumOfMeteors - 2;
+        }
+        return countOfMeteors;
     }
 }

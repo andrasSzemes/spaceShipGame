@@ -11,6 +11,7 @@ public class Spaceship {
     //  /     |_|     \
     // (_______________)
     //      ( ) ( )
+
     private int[] origo;
 
     Spaceship(int[] consoleDimensions){
