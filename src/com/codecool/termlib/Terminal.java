@@ -1,5 +1,6 @@
 package com.codecool.termlib;
 
+
 public class Terminal {
     /**
      * The beginning of control sequences.
@@ -39,7 +40,8 @@ public class Terminal {
      *
      * Might reset cursor position.
      */
-    public void clearScreen() {
+    public static void clearScreen() {
+        System.out.print(CONTROL_CODE + MOVE + CONTROL_CODE + CLEAR);
     }
 
     /**
