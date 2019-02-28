@@ -1,4 +1,5 @@
 package com.codecool.termlib;
+import java.io.Console;
 
 public class Terminal {
     /**
@@ -31,7 +32,7 @@ public class Terminal {
      * Reset the color, background color, and any other style
      * (i.e.: underlined, dim, bright) to the terminal defaults.
      */
-    public static void resetStyle() {
+    public void resetStyle() {
     }
 
     /**
@@ -39,7 +40,7 @@ public class Terminal {
      *
      * Might reset cursor position.
      */
-    public static void clearScreen() {
+    public void clearScreen() {
 	    command(CONTROL_CODE + CLEAR);
     }
 
@@ -52,7 +53,7 @@ public class Terminal {
      * @param x Column number.
      * @param y Row number.
      */
-    public static void moveTo(Integer x, Integer y) {
+    public void moveTo(Integer x, Integer y) {
 	    command(CONTROL_CODE + x + ";" + y + MOVE);
     }
 
@@ -145,7 +146,7 @@ public class Terminal {
      * underlined.  Cannot be turned off without turning off colors as
      * well.
      */
-    public static void setUnderline() {
+    public void setUnderline() {
     }
 
     /**
@@ -180,10 +181,20 @@ public class Terminal {
      * @param c the literal character to set for the current cursor
      * position.
      */
-    public static void setChar(char c) {
+    public void setChar(char c) {
 	    command(c + "");
     }
-
+    public int[] getConsoleDimensions(){
+        Console console = System.console();
+		command(CONTROL_CODE + MOVE + CONTROL_CODE + CLEAR);
+        command(CONTROL_CODE + "5000;5000" + MOVE);
+		System.out.print(CONTROL_CODE + "6n");
+		String input = console.readLine();
+		input = input.substring(input.indexOf("[") + 1, input.indexOf("R"));
+		String[] values = input.split(";");
+		int[] returnValues = {Integer.parseInt(values[0]), Integer.parseInt(values[1])};
+		return returnValues;
+    }
     /**
      * Helper function for sending commands to the terminal.
      *
