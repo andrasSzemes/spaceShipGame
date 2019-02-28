@@ -1,6 +1,10 @@
 import java.io.*;
 import java.util.Arrays;
 import com.codecool.termlib.*;
+import java.net.URL;
+import javax.sound.sampled.*;
+import javax.swing.*;
+
 
 public class Game {
     // min consoleWidth = 30???
@@ -94,6 +98,7 @@ public class Game {
               if (pressedKey == 's' && myMissile.getActivated() == false) {
                 myMissile.setActivated(true);
                 myMissile.setOrigo(myShip.getOrigoY()-6, myShip.getOrigoX());
+                playSoundEffect("laser.wav");
               }
         }
         catch (Exception e) {}
@@ -123,6 +128,7 @@ public class Game {
             myMissile.setActivated(false);
             myMissile.setInvisible(true);
             myMissile.removeOrigo();
+            playSoundEffect("explosion.wav");
           }
         }
        }
@@ -139,10 +145,31 @@ public class Game {
                   myShip.decreaseLife();
                   myMeteor.setAttack(false);
                   attack = false;
+                  playSoundEffect("hit.wav");
                 }
               }
             }
          }
       }
+    }
+
+
+    public static void playSoundEffect(String file){
+      try{
+        // Open an audio input stream.
+        File soundFile = new File(file);
+        AudioInputStream audioIn = AudioSystem.getAudioInputStream(soundFile);
+         // Get a sound clip resource.
+         Clip clip = AudioSystem.getClip();
+         // Open audio clip and load samples from the audio input stream.
+         clip.open(audioIn);
+         clip.start();
+       } catch (UnsupportedAudioFileException e) {
+          e.printStackTrace();
+       } catch (IOException e) {
+          e.printStackTrace();
+       } catch (LineUnavailableException e) {
+          e.printStackTrace();
+       }
     }
 }
