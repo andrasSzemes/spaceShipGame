@@ -11,11 +11,14 @@ public class Spaceship {
     //  /     |_|     \
     // (_______________)
     //      ( ) ( )
-    private int[] origo = new int[]{37, 90};
-    private int life = 3;
-    public void move() {
 
+    private int[] origo;
+    private int life = 3;
+
+    Spaceship(int[] consoleDimensions){
+        origo = new int[] {consoleDimensions[0] - 8, (int) Math.floor(consoleDimensions[1] / 2)};
     }
+
 
     public int getOrigoY() {return origo[0];}
     public int getOrigoX() {return origo[1];}
@@ -46,5 +49,6 @@ public class Spaceship {
 
     public void moveRight() {origo[1] += 2;}
     public void moveLeft() {origo[1] -= 2;}
+
 
 }

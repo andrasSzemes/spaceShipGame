@@ -1,27 +1,36 @@
 import java.util.Arrays;
+import java.util.Random;
 
 public class Meteor {
-  private final String ASCII = "MMM8&&&MMMM88&&&MMMM88&&&&&MMMM88&&&MMM8&&&";
-  private int[] origo;
-	private int velocity;
-  private boolean attack = true;
-	Meteor(int col){
-		origo = new int[] {(int)(Math.random() * (-15) - 1), col};
+    private final String ASCII = "MMM8&&&MMMM88&&&MMMM88&&&&&MMMM88&&&MMM8&&&";
+    private int[] origo;
+    private boolean attack = true;
+    private int origoStart;
+    private int origoEnd;
+    private Random random = new Random();
+
+	Meteor(int start, int end){
+        this.origoStart = start;
+        this.origoEnd = end;
+		origo = new int[] {(int)(random.nextInt(50) + 1) * (-1), (int)random.nextInt(end - start) + start};
 	}
 
-  public void fall() {
-		if(origo[0] < 45) {
+    public void fall(int numOfRows) {
+        int maxFallHeight = 49;
+
+		if(origo[0] < numOfRows) {
 			origo[0] += 1;
 		} else {
-			origo[0] = (int)(Math.random() * (-50) - 1);
-      setAttack(true);
+  			origo[0] = (int)(-1) * (random.nextInt(maxFallHeight) + 1);
+        origo[1] = (int)random.nextInt(this.origoEnd - this.origoStart) + this.origoStart;
+        setAttack(true);
 		}
   }
-	public int getOrigoY() {return origo[0];}
-  public int getOrigoX() {return origo[1];}
-  public boolean getAttack() {return attack;}
-  public void setAttack(boolean value){attack = value;}
-  public int[][] getCoord() {
+	  public int getOrigoY() {return origo[0];}
+    public int getOrigoX() {return origo[1];}
+    public boolean getAttack() {return attack;}
+    public void setAttack(boolean value){attack = value;}
+    public int[][] getCoord(int numOfRows) {
 		int[][] coordinates = {
 			{origo[0]-2, origo[1]-3}, {origo[0]-2, origo[1]-2}, {origo[0]-2, origo[1]-1}, {origo[0]-2, origo[1]}, {origo[0]-2, origo[1]+1},
 			{origo[0]-2, origo[1]+2}, {origo[0]-2, origo[1]+3},
@@ -35,44 +44,8 @@ public class Meteor {
 			{origo[0]+2, origo[1]-3}, {origo[0]+2, origo[1]-2}, {origo[0]+2, origo[1]-1}, {origo[0]+2, origo[1]}, {origo[0]+2, origo[1]+1},
 			{origo[0]+2, origo[1]+2}, {origo[0]+2, origo[1]+3}
 		};
-		int[][] newArray;
-		if(origo[0] < -2){
-			newArray = new int[1][1];
-		} else {
-			switch(origo[0]){
-				case -2:
-					newArray = Arrays.copyOfRange(coordinates, coordinates.length - 7, coordinates.length);
-					break;
-				case -1:
-					newArray = Arrays.copyOfRange(coordinates, coordinates.length - 16, coordinates.length);
-					break;
-				case 0:
-					newArray = Arrays.copyOfRange(coordinates, coordinates.length - 27, coordinates.length);
-					break;
-				case 1:
-					newArray = Arrays.copyOfRange(coordinates, coordinates.length - 36, coordinates.length);
-					break;
-				case 41:
-					newArray = Arrays.copyOfRange(coordinates, 0, coordinates.length - 7);
-					break;
-				case 42:
-					newArray = Arrays.copyOfRange(coordinates, 0, coordinates.length - 16);
-					break;
-				case 43:
-					newArray = Arrays.copyOfRange(coordinates, 0, coordinates.length - 27);
-					break;
-				case 44:
-					newArray = Arrays.copyOfRange(coordinates, 0, coordinates.length - 36);
-					break;
-				case 45:
-					newArray = new int[1][1];
-					break;
-				default:
-					newArray = coordinates;
-					break;
-			}
-		}
-		return newArray;
+
+		return (origo[0] < -2 | origo[0] > numOfRows + 2) ? new int[1][1] : coordinates;
 	}
-  public String getAscii() {return ASCII;}
+    public String getAscii() {return ASCII;}
 }
